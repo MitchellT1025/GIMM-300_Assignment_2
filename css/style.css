@@ -2,6 +2,22 @@
 
 }
 
+#Body{
+  background-image: url(https://cdn.wallpapersafari.com/6/10/zGM5b2.gif);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#HandymenLogo{
+  margin-top: 20px;
+}
+
+#welcome{
+  margin-top: 20px;
+  text-align: center;
+  font-family: monospace;
+}
 /*Index Page Logo*/
 #HTMLHandyLogo{
   animation-name: fadeIn;
