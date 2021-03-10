@@ -1,3 +1,22 @@
 .HelloWorld{
 
 }
+
+/*Index Page Logo*/
+#HTMLHandyLogo{
+  animation-name: fadeIn;
+  animation-duration: 5s;
+}
+/*Fade In Animation*/
+/*Feel free using this anywhere with anything,
+just simply reference the animation name and set a duration for it*/
+@keyframes fadeIn{
+  0%{
+    opacity: 0.1;
+    transform: scale(0.1);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1);
+  }
+}
