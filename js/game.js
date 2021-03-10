@@ -1,5 +1,4 @@
 window.onload = function() {
-
   var i = 0;
   var titleTextHolder = "Welcome to Javascript RPG"
   var speed = 50;
