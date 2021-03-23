@@ -15,7 +15,6 @@
   <title>Game Prototype</title>
 </head>
 
-
 <body style='overflow-x: hidden; background-color: black; color: green;'>
   <nav class="navbar navbar-light" style="background-color: #08f800;">
     <div class="container-fluid">
@@ -39,34 +38,46 @@
     </div>
   </nav>
   <h1 class='text-center' style='margin: 20px 0;' id='titleText'></h1>
-
   <div class='row'>
     <div class='mx-auto'>
       <div class='container' style='background-color: green; width: 50rem; height: 30rem; overflow: hidden;'>
-
-
         <div class='row justify-content-center h-100'>
-          <div class="card my-auto" style="width: 18rem;">
-            <img class="card-img-top" src="https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e.jpg" alt="Card image cap">
-            <div class="card-body">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <div class='col' style='margin-top: auto; margin-bottom: auto;'>
+            <!--Player Health Text-->
+            <p id='playerHealthText' class='text-center' style='color: white;'>Some text</p>
+            <!--Player Health Text-->
+          </div>
+          <div class='col-5' style='margin-top: auto; margin-bottom: auto;'>
+            <div class="card my-auto" style="width: 18rem; ">
+              <!--Enemy Card Image-->
+              <img id='enemyCardImg' class="card-img-top" src="https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e.jpg" alt="Card image cap">
+              <!--Enemy Card Image-->
+              <div class="card-body">
+                <!--Enemy Health Text-->
+                <p id='enemyCardText' class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <!--Enemy Health Text-->
+              </div>
             </div>
+          </div>
+          <div class='col' style='margin-top: auto; margin-bottom: auto;'>
+            <!--Game Output Text-->
+            <p id='gameOutputText' class='text-center' style='color: white;'>Some text</p>
+            <!--Game Output Text-->
           </div>
         </div>
 
-
         <div class='row justify-content-center fixed-bottom'>
           <div class='btn-group' role='group'>
-            <button type="button" class="btn btn-secondary btn-lg">Left</button>
-            <button type="button" class="btn btn-secondary btn-lg">Middle</button>
-            <button type="button" class="btn btn-secondary btn-lg">Right</button>
-            <button type="button" class="btn btn-secondary btn-lg">Right</button>
+            <button type="button" class="btn btn-secondary btn-lg">Attack</button>
+            <button type="button" class="btn btn-secondary btn-lg">Defend</button>
+            <button type="button" class="btn btn-secondary btn-lg">Flee</button>
+            <button type="button" class="btn btn-secondary btn-lg">Play</button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  </div>
+  
 
 </body>
 
