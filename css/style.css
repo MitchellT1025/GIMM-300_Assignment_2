@@ -1,11 +1,8 @@
-.HelloWorld{
-
-}
-
 #Body{
   background-image: url(https://cdn.wallpapersafari.com/6/10/zGM5b2.gif);
-  background-position: center;
+  /*background-position: center;*/
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: cover;
 }
 
