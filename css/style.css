@@ -14,14 +14,18 @@
 }
 
 #welcome{
-  margin-top: 20px;
+  margin-top: 50px;
+  margin-bottom: 50px;
   text-align: center;
   font-family: monospace;
+  text-shadow: 8px 8px 10px #000;
 }
 /*Index Page Logo*/
 #HTMLHandyLogo{
   animation-name: fadeIn;
   animation-duration: 5s;
+  width: 75%;
+
 }
 /*Fade In Animation*/
 /*Feel free using this anywhere with anything,
