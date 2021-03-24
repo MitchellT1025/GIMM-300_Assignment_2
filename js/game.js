@@ -13,6 +13,7 @@ window.onload = function() {
   var i = 0;
   var titleTextHolder = "Welcome to Javascript RPG"
   var speed = 50;
+
   function titleWriter() {
     if (i < titleTextHolder.length) {
       document.getElementById("titleText").innerHTML += titleTextHolder.charAt(i);
@@ -41,7 +42,7 @@ outputText.innerHTML = 'Press play to start';
 
 //===========Game Logic Values=============
 //===========Button Functions==============
-function play(){
+function play() {
   attackButton.disabled = false;
   defendButton.disabled = false;
   fleeButton.disabled = false;
@@ -49,30 +50,54 @@ function play(){
   enemyCards.splice(0, enemyCards.length);
   initializeCard();
   initializeCardDisplay();
+  outputText.innerHTML = 'A wild ' + enemyCards[0][3] + ' appears';
   playButton.removeEventListener('click', play);
 }
 
-function attack(){
+function attack() {
 
 }
 
-function defend(){
+function defend() {
 
 }
 
-function flee(){
+function flee() {
 
 }
+
+function RoundOver() {
+  //if player dies
+  if (playerHealth <= 0) {
+    attackButton.disabled = true;
+    defendButton.disabled = true;
+    fleeButton.disabled = true;
+    playButton.disabled = false;
+    playButton.addEventListener('click', play);
+    return true;
+  }
+  //if enemy dies
+  if (enemyCards[0][0] <= 0) {
+    attackButton.disabled = true;
+    defendButton.disabled = true;
+    fleeButton.disabled = true;
+    playButton.disabled = false;
+    playButton.addEventListener('click', play);
+    return true;
+  }
+  return false;
+}
+
 //===========Button Functions==============
 //=========Initalize Enemy Card============
-function initializeCard(){
+function initializeCard() {
   var cardInfo = getStats();
   cardInfo.push(getRandomImage());
   cardInfo.push(getRandomName());
   enemyCards.push(cardInfo);
 }
 
-function initializeCardDisplay(){
+function initializeCardDisplay() {
   var nameDisp = document.getElementById('enemyCardName');
   var imgDisp = document.getElementById('enemyCardImg');
   var healthDisp = document.getElementById('enemyCardHealth');
@@ -81,12 +106,12 @@ function initializeCardDisplay(){
   healthDisp.innerHTML = 'Health: ' + enemyCards[0][0];
   defenseDisp.innerHTML = 'Defense: ' + enemyCards[0][1];
   //Enemy name
-  nameDisp.innerHTML = enemyCards[0][3];
+  nameDisp.innerHTML = enemyCards[0][3];//index is 3
   //Enemy Image Display
-  imgDisp.src = '../Images/' + enemyCards[0][2];
+  imgDisp.src = '../Images/' + enemyCards[0][2];//index is 2
 }
 
-function getStats(){
+function getStats() {
   //random stats for Health and Defense
   var stats = [];
 
@@ -98,7 +123,7 @@ function getStats(){
   return stats;
 }
 
-function getRandomImage(){
+function getRandomImage() {
   var imageSrc = '';
   var images = ['daffy.jpg', 'krab.jpg', 'stimpy.jpg', 'STOPRIGHTTHERE.jpg'];
 
@@ -107,7 +132,7 @@ function getRandomImage(){
   return imageSrc;
 }
 
-function getRandomName(){
+function getRandomName() {
   var name = '';
   var names = ['Mourntaur', 'Smogbody', 'Glowbrute', 'Doomling'];
   var name = names[Math.floor(Math.random() * names.length)];
