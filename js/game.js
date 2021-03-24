@@ -7,6 +7,11 @@ const fleeButton = document.getElementById('fleeBtn');
 fleeButton.addEventListener('click', flee);
 const playButton = document.getElementById('playBtn');
 playButton.addEventListener('click', play);
+//Display Stuff initialized
+var nameDisp = document.getElementById('enemyCardName');
+var imgDisp = document.getElementById('enemyCardImg');
+var healthDisp = document.getElementById('enemyCardHealth');
+var defenseDisp = document.getElementById('enemyCardDefense');
 
 window.onload = function() {
   //stuff to happen on the window loading
@@ -30,7 +35,7 @@ window.onload = function() {
 }
 //===========Game Logic Values=============
 var playerHealth = 50;
-var playerDamage;
+var playerDamage = 10;
 
 var enemyCards = [];
 //player feedback text
@@ -55,7 +60,13 @@ function play() {
 }
 
 function attack() {
-
+  console.log('attack pressed');
+  if (!gameOver()){
+    playerHealth -= enemyCards[0][1];
+    enemyCards[0][0] -= playerDamage;
+    updateDisplay();
+  }
+  gameOver();
 }
 
 function defend() {
@@ -66,7 +77,7 @@ function flee() {
 
 }
 
-function RoundOver() {
+function gameOver() {
   //if player dies
   if (playerHealth <= 0) {
     attackButton.disabled = true;
@@ -98,10 +109,7 @@ function initializeCard() {
 }
 
 function initializeCardDisplay() {
-  var nameDisp = document.getElementById('enemyCardName');
-  var imgDisp = document.getElementById('enemyCardImg');
-  var healthDisp = document.getElementById('enemyCardHealth');
-  var defenseDisp = document.getElementById('enemyCardDefense');
+
   //Enemy Health and Defense
   healthDisp.innerHTML = 'Health: ' + enemyCards[0][0];
   defenseDisp.innerHTML = 'Defense: ' + enemyCards[0][1];
@@ -109,6 +117,10 @@ function initializeCardDisplay() {
   nameDisp.innerHTML = enemyCards[0][3];//index is 3
   //Enemy Image Display
   imgDisp.src = '../Images/' + enemyCards[0][2];//index is 2
+}
+function updateDisplay(){
+  playerHealthText.innerHTML = 'Your Health Is: ' + playerHealth;
+  healthDisp.innerHTML = 'Health: ' + enemyCards[0][0];
 }
 
 function getStats() {
