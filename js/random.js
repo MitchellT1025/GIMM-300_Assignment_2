@@ -17,4 +17,12 @@ function random_Number(){
 const htmlButton = document.getElementById('htmlBtn');
 htmlButton.addEventListener('click', htmlClick);
 const cssButton = document.getElementById('cssBtn');
-cssButton = document.getElementById('click', cssClick);
+cssButton.addEventListener('click', cssClick);
+
+function htmlClick(){
+
+}
+
+function cssClick(){
+  cssButton.style.backgroundColor = 'red';
+}
