@@ -1,3 +1,39 @@
-.HelloWorld{
+#Body{
+  background-image: url(https://cdn.wallpapersafari.com/6/10/zGM5b2.gif);
+  /*background-position: center;*/
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
 
+#HandymenLogo{
+  margin-top: 20px;
+}
+
+#welcome{
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-align: center;
+  font-family: monospace;
+  text-shadow: 8px 8px 10px #000;
+}
+/*Index Page Logo*/
+#HTMLHandyLogo{
+  animation-name: fadeIn;
+  animation-duration: 5s;
+  width: 75%;
+
+}
+/*Fade In Animation*/
+/*Feel free using this anywhere with anything,
+just simply reference the animation name and set a duration for it*/
+@keyframes fadeIn{
+  0%{
+    opacity: 0.1;
+    transform: scale(0.1);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1);
+  }
 }
