@@ -18,3 +18,7 @@ const htmlButton = document.getElementById('htmlBtn');
 htmlButton.addEventListener('click', htmlClick);
 const cssButton = document.getElementById('cssBtn');
 cssButton = document.getElementById('click', cssClick);
+
+function htmlClick(){
+document.getElementById('htmlBtn').style.color = 'red'; 
+}
