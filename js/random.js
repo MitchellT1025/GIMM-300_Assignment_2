@@ -3,13 +3,13 @@ window.onload = function(){
   document.getElementById("random_number").innerHTML = randomNumber;
 }
 
-const randomBtn = document.getElementById('randBtn');
+const randomBtn = document.getElementById("randBtn");
 randomBtn.addEventListener('click', random_Number);
 
 
 function random_Number(){
   var randomNumber = Math.floor(Math.random() * 100);
-  document.getElementById("randBtn").innerHTML = randomNumber;
+  document.getElementById("random_number").innerHTML = randomNumber;
   randomBtn.removeEventListener('click' , random_number)
 }
 
