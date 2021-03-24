@@ -30,7 +30,6 @@ window.onload = function() {
 //===========Game Logic Values=============
 var playerHealth = 50;
 var playerDamage;
-var enemyHealth;
 
 var enemyCards = [];
 //player feedback text
@@ -50,6 +49,7 @@ function play(){
   enemyCards.splice(0, enemyCards.length);
   initializeCard();
   initializeCardDisplay();
+  playButton.removeEventListener('click', play);
 }
 
 function attack(){
@@ -75,9 +75,10 @@ function initializeCardDisplay(){
   var imgDisp = document.getElementById('enemyCardImg');
   var healthDisp = document.getElementById('enemyCardHealth');
   var defenseDisp = document.getElementById('enemyCardDefense');
-
+  //Enemy Health and Defense
   healthDisp.innerHTML = 'Health: ' + enemyCards[0][0];
   defenseDisp.innerHTML = 'Defense: ' + enemyCards[0][1];
+  //Enemy Image Display
   imgDisp.src = '../Images/' + enemyCards[0][2];
 }
 
