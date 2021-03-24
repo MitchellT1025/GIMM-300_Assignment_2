@@ -7,7 +7,7 @@ const randomBtn = document.getElementById('randBtn');
 randomBtn.addEventListener('click', random_Number);
 
 
-function randon_number(){
+function random_Number(){
   var randomNumber = Math.floor(Math.random() * 100);
   document.getElementById("randBtn").innerHTML = randomNumber;
   randomBtn.removeEventListener('click' , random_number)
