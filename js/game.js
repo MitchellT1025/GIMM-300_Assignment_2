@@ -68,16 +68,20 @@ function flee(){
 function initializeCard(){
   var cardInfo = getStats();
   cardInfo.push(getRandomImage());
+  cardInfo.push(getRandomName());
   enemyCards.push(cardInfo);
 }
 
 function initializeCardDisplay(){
+  var nameDisp = document.getElementById('enemyCardName');
   var imgDisp = document.getElementById('enemyCardImg');
   var healthDisp = document.getElementById('enemyCardHealth');
   var defenseDisp = document.getElementById('enemyCardDefense');
   //Enemy Health and Defense
   healthDisp.innerHTML = 'Health: ' + enemyCards[0][0];
   defenseDisp.innerHTML = 'Defense: ' + enemyCards[0][1];
+  //Enemy name
+  nameDisp.innerHTML = enemyCards[0][3];
   //Enemy Image Display
   imgDisp.src = '../Images/' + enemyCards[0][2];
 }
@@ -101,5 +105,13 @@ function getRandomImage(){
   imageSrc += images[Math.floor(Math.random() * images.length)];
   console.log(imageSrc);
   return imageSrc;
+}
+
+function getRandomName(){
+  var name = '';
+  var names = ['Mourntaur', 'Smogbody', 'Glowbrute', 'Doomling'];
+  var name = names[Math.floor(Math.random() * names.length)];
+  console.log(name);
+  return name;
 }
 //=========Initalize Enemy Card============
