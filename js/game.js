@@ -7,7 +7,7 @@ const fleeButton = document.getElementById('fleeBtn');
 fleeButton.addEventListener('click', flee);
 const playButton = document.getElementById('playBtn');
 playButton.addEventListener('click', play);
-//Display Stuff initialized
+//Display Stuff initialized globally
 var nameDisp = document.getElementById('enemyCardName');
 var imgDisp = document.getElementById('enemyCardImg');
 var healthDisp = document.getElementById('enemyCardHealth');
@@ -84,6 +84,7 @@ function gameOver() {
     defendButton.disabled = true;
     fleeButton.disabled = true;
     playButton.disabled = false;
+    outputText.innerHTML = 'YOU DIED';
     playButton.addEventListener('click', play);
     return true;
   }
@@ -93,6 +94,7 @@ function gameOver() {
     defendButton.disabled = true;
     fleeButton.disabled = true;
     playButton.disabled = false;
+    outputText.innerHTML = 'VICTORY';
     playButton.addEventListener('click', play);
     return true;
   }
