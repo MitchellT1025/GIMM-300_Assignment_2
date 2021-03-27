@@ -1,4 +1,4 @@
-const img = document.getElementById('Ricky');
+var img = document.getElementById('Ricky');
 
 window.onload = function(){
   var randomNumber = Math.floor(Math.random() * 100);
@@ -24,7 +24,16 @@ const cssButton = document.getElementById('cssBtn');
 cssButton.addEventListener('click', cssClick);
 
 function htmlClick(){
-img.style.visibility = 'visible';
+  if (img.style.visibility == 'visible') {
+      img.style.visibility = 'hidden';
+    }
+    else{
+      img.style.visibility = 'visible'; 
+    }
+}
+
+function reset(){
+  img.style.visibility = 'hidden';
 }
 
 
