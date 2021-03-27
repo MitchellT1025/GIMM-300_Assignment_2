@@ -225,7 +225,7 @@ function getStats() {
 
 function getRandomImage() {
   var imageSrc = '';
-  var images = ['daffy.jpg', 'krab.jpg', 'stimpy.jpg', 'STOPRIGHTTHERE.jpg'];
+  var images = ['daffy.jpg', 'krab.jpg', 'stimpy.jpg', 'STOPRIGHTTHERE.jpg', 'Ricky.jpg', 'gazpacho.png', 'lego.png', 'stalker.png'];
 
   imageSrc += images[Math.floor(Math.random() * images.length)];
   console.log(imageSrc);
