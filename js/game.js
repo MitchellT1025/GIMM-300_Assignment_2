@@ -45,6 +45,8 @@ var defenseCounter = 0;
 var playerDamage;
 var enemyDamage;
 var playerHealthRestore;
+//every time this goes to 5, trigger a boss card to be made
+var bossTracker = 0;
 
 var enemyCards = [];
 //player feedback text
@@ -65,6 +67,8 @@ function play() {
   }
   //ensure defense counter is reset each round
   defenseCounter = 0;
+  //increment boss boss counter
+  bossTracker++;
   //enable buttons
   attackButton.disabled = false;
   defendButton.disabled = false;
@@ -73,13 +77,28 @@ function play() {
   //empty previous card array
   enemyCards.splice(0, enemyCards.length);
   //initialize and append new card to emptied array
-  initializeCard();
-  initializeCardDisplay();
-  outputText.innerHTML = 'A wild ' + enemyCards[0][3] + ' appears';
-  //empty out labels
-  playerDamageDisp.innerHTML = "";
-  enemyDamageDisp.innerHTML = "";
-  playButton.removeEventListener('click', play);
+  if (bossTracker == 5){
+    initializeBossCard();
+    initializeBossCardDisplay();
+    outputText.innerHTML = 'A wild ' + enemyCards[0][3] + ' appears';
+    //empty out labels
+    playerDamageDisp.innerHTML = "";
+    enemyDamageDisp.innerHTML = "";
+    //reset boss tracker
+    bossTracker = 0;
+    playButton.removeEventListener('click', play);
+  }
+  else
+  {
+    initializeCard();
+    initializeCardDisplay();
+    outputText.innerHTML = 'A wild ' + enemyCards[0][3] + ' appears';
+    //empty out labels
+    playerDamageDisp.innerHTML = "";
+    enemyDamageDisp.innerHTML = "";
+    playButton.removeEventListener('click', play);
+  }
+
 }
 //attack Button
 //if your calculated damage is less than the enemy defense, you do minimal damage
@@ -185,6 +204,8 @@ function gameOver() {
     playButton.disabled = false;
     outputText.innerHTML = 'YOU DIED! Press Play to Restart';
     playerDeath = true;
+    //reset boss tracker
+    bossTracker = 0;
     playButton.addEventListener('click', play);
     return true;
   }
@@ -243,7 +264,7 @@ function getStats() {
 
 function getRandomImage() {
   var imageSrc = '';
-  var images = ['daffy.jpg', 'krab.jpg', 'stimpy.jpg', 'STOPRIGHTTHERE.jpg', 'Ricky.jpg', 'gazpacho.png', 'lego.png', 'stalker.png'];
+  var images = ['daffy.jpg', 'krab.jpg', 'stimpy.jpg', 'STOPRIGHTTHERE.jpg', 'gazpacho.png', 'lego.png', 'stalker.png'];
 
   imageSrc += images[Math.floor(Math.random() * images.length)];
   console.log(imageSrc);
@@ -258,3 +279,43 @@ function getRandomName() {
   return name;
 }
 //=========Initalize Enemy Card============
+//=============Special Enemy===============
+function initializeBossCard() {
+  var cardInfo = getBossStats();
+  cardInfo.push(getBossRandomImage());
+  cardInfo.push(getBossRandomName());
+  enemyCards.push(cardInfo);
+}
+
+function initializeBossCardDisplay() {
+
+  //Enemy Health and Defense
+  healthDisp.innerHTML = 'Health: ' + enemyCards[0][0];
+  defenseDisp.innerHTML = 'Defense: ' + enemyCards[0][1];
+  //Enemy name
+  nameDisp.innerHTML = enemyCards[0][3];//index is 3
+  //Enemy Image Display
+  imgDisp.src = '../Images/' + enemyCards[0][2];//index is 2
+}
+
+function getBossStats() {
+  //random stats for Health and Defense
+  var stats = [];
+
+  var attack = parseInt(Math.random() * (30 - 10) + 10);
+  var defense = parseInt(Math.random() * 14 + 8);
+  stats.push(attack);
+  stats.push(defense);
+  console.log(stats);
+  return stats;
+}
+
+function getBossRandomImage() {
+  var imageSrc = 'Ricky.jpg';
+  return imageSrc;
+}
+function getBossRandomName() {
+  var name = 'Rick Astley';
+  return name;
+}
+//=============Special Enemy===============
