@@ -28,7 +28,7 @@ function htmlClick(){
       img.style.visibility = 'hidden';
     }
     else{
-      img.style.visibility = 'visible'; 
+      img.style.visibility = 'visible';
     }
 }
 
@@ -36,7 +36,16 @@ function reset(){
   img.style.visibility = 'hidden';
 }
 
+var clicked = false;
 
 function cssClick(){
-  cssButton.style.backgroundColor = 'red';
+  if (!clicked){
+    cssButton.style.backgroundColor = 'red';
+    clicked = true;
+  }
+  else if (clicked){
+    cssButton.style.backgroundColor = '#00ff00';
+    clicked = false;
+  }
+  /*#00ff00*/
 }
