@@ -31,6 +31,7 @@ window.onload = function() {
     }
   }
   titleWriter();
+  //only play button enabled upon window loading
   attackButton.disabled = true;
   defendButton.disabled = true;
   fleeButton.disabled = true;
@@ -57,19 +58,25 @@ outputText.innerHTML = 'Press play to start';
 //===========Button Functions==============
 function play() {
   if (playerDeath){
+    //resets player health & death bool is reset
     playerHealth = 50;
     playerHealthText.innerHTML = 'Your Health Is: ' + playerHealth;
     playerDeath = false;
   }
+  //ensure defense counter is reset each round
   defenseCounter = 0;
+  //enable buttons
   attackButton.disabled = false;
   defendButton.disabled = false;
   fleeButton.disabled = false;
   playButton.disabled = true;
+  //empty previous card array
   enemyCards.splice(0, enemyCards.length);
+  //initialize and append new card to emptied array
   initializeCard();
   initializeCardDisplay();
   outputText.innerHTML = 'A wild ' + enemyCards[0][3] + ' appears';
+  //empty out labels
   playerDamageDisp.innerHTML = "";
   enemyDamageDisp.innerHTML = "";
   playButton.removeEventListener('click', play);
@@ -77,11 +84,13 @@ function play() {
 //attack Button
 //if your calculated damage is less than the enemy defense, you do minimal damage
 function attack() {
+  //damage randomized upon click
   playerDamage = parseInt(Math.random() * (20 - 1) + 1);
   enemyDamage = parseInt(Math.random() * (14 - 1) + 1);
   outputText.innerHTML = "";
   console.log('attack pressed');
   if (!gameOver()){
+    //if card defense > your damage
     if (enemyCards[0][1] > playerDamage){
       playerDamageDisp.innerHTML = "Your attack was weak and did 1 point of damage";
       enemyDamageDisp.innerHTML = "The " + enemyCards[0][3] + " did " + enemyDamage + " damage";
@@ -89,12 +98,15 @@ function attack() {
       enemyCards[0][0]--;
     }
     else {
+      //basic attack
       playerDamageDisp.innerHTML = "You did " + playerDamage + " damage";
       enemyDamageDisp.innerHTML = "The " + enemyCards[0][3] + " did " + enemyDamage + " damage";
       playerHealth -= enemyDamage;
       enemyCards[0][0] -= playerDamage;
     }
+    //attacking restores defense counter allowing you to defend more than 3 times
     defenseCounter--;
+    //ensures defense counter doesn't go into negatives
     if (defenseCounter < 0){
       defenseCounter = 0;
     }
@@ -109,10 +121,13 @@ function attack() {
 //can only use up to 3 times, after that you lose the ability to defend and take regular damage
 //to use defense you must use it less than 3 times and prioritize attacks
 function defend() {
+  //counter increments
   defenseCounter++;
+  //damage calculated upon defense failure
   enemyDamage = parseInt(Math.random() * (14 - 1) + 1);
 
   if(!gameOver()){
+    //fail to defend
     if (defenseCounter > 3){
       outputText.innerHTML = "";
       playerDamageDisp.innerHTML = "The " + enemyCards[0][3] + " interrupts your defensive stance";
@@ -120,6 +135,7 @@ function defend() {
       enemyDamageDisp.innerHTML = "";
       defendButton.disabled = true;
     }
+    //defend
     else{
       outputText.innerHTML = "";
       playerDamageDisp.innerHTML = "You set up in a defensive stance and recieve minimal damage";
@@ -134,8 +150,9 @@ function defend() {
 
 //50-50 chance of escaping a fight or losing the ability to and taking damage
 function flee() {
+  //enemy damage calculated upon failing to flee
   enemyDamage = parseInt(Math.random() * (14 - 1) + 1);
-
+  //successful flee
   if (Math.random() < 0.5){
     outputText.innerHTML = 'You escape successfully!';
     playerHealthRestore = parseInt(Math.random() * (6 - 1) + 1);
@@ -147,6 +164,7 @@ function flee() {
     playButton.disabled = false;
     playButton.addEventListener('click', play);
   }
+  //fail to flee
   else{
     outputText.innerHTML = 'You failed to escape. Sorry!';
     playerDamageDisp.innerHTML = "";
@@ -156,7 +174,8 @@ function flee() {
   }
   updateDisplay();
 }
-
+//===========Button Functions==============
+//========Game Condiction Checking=========
 function gameOver() {
   //if player dies
   if (playerHealth <= 0) {
@@ -186,8 +205,7 @@ function gameOver() {
   }
   return false;
 }
-
-//===========Button Functions==============
+//========Game Condiction Checking=========
 //=========Initalize Enemy Card============
 function initializeCard() {
   var cardInfo = getStats();
