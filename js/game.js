@@ -114,12 +114,14 @@ function defend() {
 
   if(!gameOver()){
     if (defenseCounter > 3){
+      outputText.innerHTML = "";
       playerDamageDisp.innerHTML = "The " + enemyCards[0][3] + " interrupts your defensive stance";
       playerHealth -= enemyDamage;
       enemyDamageDisp.innerHTML = "";
       defendButton.disabled = true;
     }
     else{
+      outputText.innerHTML = "";
       playerDamageDisp.innerHTML = "You set up in a defensive stance and recieve minimal damage";
       playerHealthRestore = parseInt(Math.random() * 4 + 1);
       playerHealth += playerHealthRestore;
