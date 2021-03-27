@@ -12,6 +12,10 @@ var nameDisp = document.getElementById('enemyCardName');
 var imgDisp = document.getElementById('enemyCardImg');
 var healthDisp = document.getElementById('enemyCardHealth');
 var defenseDisp = document.getElementById('enemyCardDefense');
+var playerDamageDisp = document.getElementById('playerDamageReport');
+var enemyDamageDisp = document.getElementById('enemyDamageReport');
+
+var playerDeath = false;
 
 window.onload = function() {
   //stuff to happen on the window loading
@@ -35,7 +39,11 @@ window.onload = function() {
 }
 //===========Game Logic Values=============
 var playerHealth = 50;
-var playerDamage = 10;
+//prevent spamming the defense button to heal
+var defenseCounter = 0;
+var playerDamage;
+var enemyDamage;
+var playerHealthRestore;
 
 var enemyCards = [];
 //player feedback text
@@ -48,6 +56,12 @@ outputText.innerHTML = 'Press play to start';
 //===========Game Logic Values=============
 //===========Button Functions==============
 function play() {
+  if (playerDeath){
+    playerHealth = 50;
+    playerHealthText.innerHTML = 'Your Health Is: ' + playerHealth;
+    playerDeath = false;
+  }
+  defenseCounter = 0;
   attackButton.disabled = false;
   defendButton.disabled = false;
   fleeButton.disabled = false;
@@ -56,25 +70,89 @@ function play() {
   initializeCard();
   initializeCardDisplay();
   outputText.innerHTML = 'A wild ' + enemyCards[0][3] + ' appears';
+  playerDamageDisp.innerHTML = "";
+  enemyDamageDisp.innerHTML = "";
   playButton.removeEventListener('click', play);
 }
-
+//attack Button
+//if your calculated damage is less than the enemy defense, you do minimal damage
 function attack() {
+  playerDamage = parseInt(Math.random() * (20 - 1) + 1);
+  enemyDamage = parseInt(Math.random() * (14 - 1) + 1);
+
   console.log('attack pressed');
   if (!gameOver()){
-    playerHealth -= enemyCards[0][1];
-    enemyCards[0][0] -= playerDamage;
+    if (enemyCards[0][1] > playerDamage){
+      playerDamageDisp.innerHTML = "Your attack was weak and did 1 point of damage";
+      enemyDamageDisp.innerHTML = "The " + enemyCards[0][3] + " did " + enemyDamage + " damage";
+      playerHealth -= enemyDamage;
+      enemyCards[0][0]--;
+    }
+    else {
+      playerDamageDisp.innerHTML = "You did " + playerDamage + " damage";
+      enemyDamageDisp.innerHTML = "The " + enemyCards[0][3] + " did " + enemyDamage + " damage";
+      playerHealth -= enemyDamage;
+      enemyCards[0][0] -= playerDamage;
+    }
+    defenseCounter--;
+    if (defenseCounter < 0){
+      defenseCounter = 0;
+    }
+    console.log(defenseCounter);
     updateDisplay();
   }
   gameOver();
 }
 
+//defense Button
+//method to heal up and prepare for a big enemy if you have low health
+//can only use up to 3 times, after that you lose the ability to defend and take regular damage
+//to use defense you must use it less than 3 times and prioritize attacks
 function defend() {
+  defenseCounter++;
+  enemyDamage = parseInt(Math.random() * (14 - 1) + 1);
 
+  if(!gameOver()){
+    if (defenseCounter > 3){
+      playerDamageDisp.innerHTML = "The " + enemyCards[0][3] + " interrupts your defensive stance";
+      playerHealth -= enemyDamage;
+      enemyDamageDisp.innerHTML = "";
+      defendButton.disabled = true;
+    }
+    else{
+      playerDamageDisp.innerHTML = "You set up in a defensive stance and recieve minimal damage";
+      playerHealthRestore = parseInt(Math.random() * 4 + 1);
+      playerHealth += playerHealthRestore;
+      enemyDamageDisp.innerHTML = "You heal " + playerHealthRestore + " health points";
+    }
+    updateDisplay();
+  }
+  gameOver();
 }
 
+//50-50 chance of escaping a fight or losing the ability to and taking damage
 function flee() {
+  enemyDamage = parseInt(Math.random() * (14 - 1) + 1);
 
+  if (Math.random() < 0.5){
+    outputText.innerHTML = 'You escape successfully!';
+    playerHealthRestore = parseInt(Math.random() * (6 - 1) + 1);
+    playerHealth += playerHealthRestore;
+    playerDamageDisp.innerHTML = "You gain " + playerHealthRestore + " health points";
+    attackButton.disabled = true;
+    defendButton.disabled = true;
+    fleeButton.disabled = true;
+    playButton.disabled = false;
+    playButton.addEventListener('click', play);
+  }
+  else{
+    outputText.innerHTML = 'You failed to escape. Sorry!';
+    playerDamageDisp.innerHTML = "";
+    enemyDamageDisp.innerHTML = "The " + enemyCards[0][3] + " did " + enemyDamage + " damage";
+    playerHealth -= enemyDamage;
+    fleeButton.disabled = true;
+  }
+  updateDisplay();
 }
 
 function gameOver() {
@@ -84,7 +162,8 @@ function gameOver() {
     defendButton.disabled = true;
     fleeButton.disabled = true;
     playButton.disabled = false;
-    outputText.innerHTML = 'YOU DIED';
+    outputText.innerHTML = 'YOU DIED! Press Play to Restart';
+    playerDeath = true;
     playButton.addEventListener('click', play);
     return true;
   }
@@ -95,6 +174,11 @@ function gameOver() {
     fleeButton.disabled = true;
     playButton.disabled = false;
     outputText.innerHTML = 'VICTORY';
+    playerHealthRestore = parseInt(Math.random() * (6 - 1) + 1);
+    playerHealth += playerHealthRestore;
+    playerDamageDisp.innerHTML = "You gain " + playerHealthRestore + " health points";
+    enemyDamageDisp.innerHTML = "";
+    playerHealthText.innerHTML = 'Your Health Is: ' + playerHealth;
     playButton.addEventListener('click', play);
     return true;
   }
@@ -130,7 +214,7 @@ function getStats() {
   var stats = [];
 
   var attack = parseInt(Math.random() * (26 - 10) + 10);
-  var defense = parseInt(Math.random() * (11 - 5) + 5);
+  var defense = parseInt(Math.random() * 14 + 2);
   stats.push(attack);
   stats.push(defense);
   console.log(stats);
