@@ -79,7 +79,7 @@ function play() {
 function attack() {
   playerDamage = parseInt(Math.random() * (20 - 1) + 1);
   enemyDamage = parseInt(Math.random() * (14 - 1) + 1);
-
+  outputText.innerHTML = "";
   console.log('attack pressed');
   if (!gameOver()){
     if (enemyCards[0][1] > playerDamage){
