@@ -80,9 +80,9 @@ function play() {
   if (bossTracker == 5){
     initializeBossCard();
     initializeBossCardDisplay();
-    outputText.innerHTML = 'A wild ' + enemyCards[0][3] + ' appears';
+    outputText.innerHTML = 'The infamous English singer, songwriter, and radio personality ' + enemyCards[0][3] + ' approaches you';
     //empty out labels
-    playerDamageDisp.innerHTML = "";
+    playerDamageDisp.innerHTML = "BOSS FIGHT ALERT";
     enemyDamageDisp.innerHTML = "";
     //reset boss tracker
     bossTracker = 0;
@@ -216,7 +216,7 @@ function gameOver() {
     fleeButton.disabled = true;
     playButton.disabled = false;
     outputText.innerHTML = 'VICTORY';
-    playerHealthRestore = parseInt(Math.random() * (6 - 1) + 1);
+    playerHealthRestore = parseInt(Math.random() * (10 - 2) + 2);
     playerHealth += playerHealthRestore;
     playerDamageDisp.innerHTML = "You gain " + playerHealthRestore + " health points";
     enemyDamageDisp.innerHTML = "";
@@ -303,7 +303,7 @@ function getBossStats() {
   var stats = [];
 
   var attack = parseInt(Math.random() * (30 - 10) + 10);
-  var defense = parseInt(Math.random() * 14 + 8);
+  var defense = parseInt(Math.random() * 12 + 8);
   stats.push(attack);
   stats.push(defense);
   console.log(stats);
